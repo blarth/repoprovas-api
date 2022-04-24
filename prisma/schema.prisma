@@ -80,4 +80,6 @@ model Session {
   userId Int
   token String
   user User @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
 }

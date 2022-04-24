@@ -9,7 +9,7 @@ export async function createUser(createUserData : CreateUserData){
     return
 }
 
-export async function getUser(email : string){
+async function getUser(email : string){
     const user = await userRepository.findUserByEmail(email)
     if(user) throw errorUtils.conflictError("user email is unique")
     return user
