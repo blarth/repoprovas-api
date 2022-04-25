@@ -14,6 +14,7 @@ export async function getByDiscipline(){
                             tests : {
                                 select : {
                                     name : true,
+                                    pdfUrl : true,
                                     category : {
                                         select : {
                                             name : true
@@ -44,6 +45,7 @@ export async function getByTeacher(){
                     tests : {
                         select : {
                             name : true,
+                            pdfUrl : true,
                             category : {
                                 select : {
                                     name : true
