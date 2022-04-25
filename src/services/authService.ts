@@ -4,14 +4,16 @@ import { CreateUserData } from "../repositories/userRepository.js"
 import * as error from "../utils/errorUtils.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import { Session, User } from "@prisma/client";
+
 
 
 export async function login({email ,password}: CreateUserData){
     
-        const user = await getUser(email)
+        const user : User = await getUser(email)
         if(!bcrypt.compareSync(password, user.password)) throw error.authError("Unauthorized")
         
-        const session = await authRepository.findByUserId(user.id);
+        const session : Session = await authRepository.findByUserId(user.id);
         
         if(session){
             try {
@@ -23,8 +25,8 @@ export async function login({email ,password}: CreateUserData){
         }
 
         
-        const jwtData = { userId: user.id };
-        const token = jwt.sign(jwtData, "hello-word");
+        
+        const token = jwt.sign({ userId: user.id }, "hello-word");
 
         await authRepository.create({token, userId:user.id});
     
@@ -35,7 +37,7 @@ export async function login({email ,password}: CreateUserData){
 
 
 async function getUser(email : string){
-    const user = await authRepository.findUserByEmail(email)
+    const user : User = await authRepository.findUserByEmail(email)
     if(!user) throw error.authError("Unauthorized")
     return user
 }

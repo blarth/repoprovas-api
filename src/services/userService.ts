@@ -4,13 +4,13 @@ import bcrypt from "bcrypt"
 
 export async function createUser(createUserData : CreateUserData){
     await getUser(createUserData.email);
-    const encryptedPassword = encryptPassword(createUserData.password)
+    const encryptedPassword : string = encryptPassword(createUserData.password)
     await userRepository.insert({email : createUserData.email, password : encryptedPassword})
     return
 }
 
 async function getUser(email : string){
-    const user = await userRepository.findUserByEmail(email)
+    const user : CreateUserData = await userRepository.findUserByEmail(email)
     if(user) throw errorUtils.conflictError("user email is unique")
     return user
 }
