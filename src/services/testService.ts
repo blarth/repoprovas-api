@@ -11,3 +11,6 @@ export async function getByDisciplineName(disciplineName : string){
 export async function getByTeacher(){
     return await testRepository.getByTeacher()
 }
+export async function getByTeacherName(name : string){
+    return await testRepository.getByTeacherName(name)
+}

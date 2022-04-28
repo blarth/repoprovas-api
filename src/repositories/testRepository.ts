@@ -95,3 +95,40 @@ export async function getByTeacher() {
     },
   });
 }
+export async function getByTeacherName(teacherName : string) {
+  return prisma.teacher.findMany({
+      where : {
+          name : {
+              startsWith : teacherName
+          }
+      },
+    select: {
+      name: true,
+      teacherDisciplines: {
+        select: {
+          tests: {
+            select: {
+              name: true,
+              pdfUrl: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          discipline: {
+            select: {
+              name: true,
+              term: {
+                select: {
+                  number: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}

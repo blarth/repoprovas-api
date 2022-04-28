@@ -20,3 +20,9 @@ export async function getByTeacher(req: Request, res: Response){
 
     res.send(tests)
 }
+export async function getByTeacherName(req: Request, res: Response){
+    const {name} = req.params
+    const tests = await testService.getByTeacherName(name)
+
+    res.send(tests)
+}
