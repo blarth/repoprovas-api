@@ -14,3 +14,7 @@ export async function getByTeacher(){
 export async function getByTeacherName(name : string){
     return await testRepository.getByTeacherName(name)
 }
+
+export async function increaseView(id : number){
+    return await testRepository.increaseView(id)
+}

@@ -26,3 +26,10 @@ export async function getByTeacherName(req: Request, res: Response){
 
     res.send(tests)
 }
+
+export async function increaseView(req: Request, res: Response){
+    const {id} = req.params
+    await testService.increaseView(Number(id))
+
+    res.sendStatus(200)
+}

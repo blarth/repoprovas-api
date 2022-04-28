@@ -13,6 +13,7 @@ export async function getByDiscipline() {
                 select: {
                   name: true,
                   pdfUrl: true,
+                  numberViews : true,
                   category: {
                     select: {
                       name: true,
@@ -33,6 +34,41 @@ export async function getByDiscipline() {
   });
 }
 export async function getByDisciplineName(disciplineName: string) {
+  return prisma.term.findMany({
+    /* where: {
+      disciplines : {
+    }, */
+    select: {
+      number: true,
+      disciplines: {
+        select: {
+          name: true,
+          teacherDisciplines: {
+            select: {
+              tests: {
+                select: {
+                  name: true,
+                  pdfUrl: true,
+                  category: {
+                    select: {
+                      name: true,
+                    },
+                  },
+                },
+              },
+              teacher: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}
+export async function getByDisciplineNameS(disciplineName: string) {
   return prisma.discipline.findMany({
     where: {
       name: { startsWith: disciplineName },
@@ -73,6 +109,7 @@ export async function getByTeacher() {
             select: {
               name: true,
               pdfUrl: true,
+              numberViews : true,
               category: {
                 select: {
                   name: true,
@@ -95,13 +132,13 @@ export async function getByTeacher() {
     },
   });
 }
-export async function getByTeacherName(teacherName : string) {
+export async function getByTeacherName(teacherName: string) {
   return prisma.teacher.findMany({
-      where : {
-          name : {
-              startsWith : teacherName
-          }
+    where: {
+      name: {
+        startsWith: teacherName,
       },
+    },
     select: {
       name: true,
       teacherDisciplines: {
@@ -110,6 +147,7 @@ export async function getByTeacherName(teacherName : string) {
             select: {
               name: true,
               pdfUrl: true,
+              numberViews : true,
               category: {
                 select: {
                   name: true,
@@ -131,4 +169,15 @@ export async function getByTeacherName(teacherName : string) {
       },
     },
   });
+}
+
+export async function increaseView(id : number){
+  return prisma.test.update({
+    where : {
+      id : id
+    },
+    data : {
+      numberViews : {increment : 1}
+    }
+  })
 }
