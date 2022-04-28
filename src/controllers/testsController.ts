@@ -8,6 +8,12 @@ export async function getByDiscipline(req: Request, res: Response){
 
     res.send(tests)
 }
+export async function getByDisciplineByName(req: Request, res: Response){
+    const {name} = req.params
+    const tests = await testService.getByDisciplineName(name)
+
+    res.send(tests)
+}
 
 export async function getByTeacher(req: Request, res: Response){
     const tests = await testService.getByTeacher()
