@@ -8,5 +8,6 @@ testsRouter.get('/tests/disciplines', validateTokenMiddleware, testController.ge
 testsRouter.get('/tests/disciplines/:name', validateTokenMiddleware, testController.getByDisciplineByName)
 testsRouter.get('/tests/teachers', validateTokenMiddleware, testController.getByTeacher)
 testsRouter.get('/tests/teachers/:name', validateTokenMiddleware, testController.getByTeacherName)
+testsRouter.patch('/tests/:id', validateTokenMiddleware, testController.increaseView)
 
 export default testsRouter;  
